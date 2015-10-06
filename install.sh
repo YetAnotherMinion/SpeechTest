@@ -8,8 +8,11 @@ SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
 
 
 #use sumodules in SPHINX_ROOT
-git submodule add git@github.com:cmusphinx/sphinxbase.git
-git submodule add git@github.com:cmusphinx/pocketsphinx.git
+git submodule add https://github.com/cmusphinx/sphinxbase.git
+git submodule add https://github.com/cmusphinx/pocketsphinx.git
+
+#cmu maintains a mirror of the svn
+git submodule add https://github.com/cmusphinx/kaldi.git
 # you will need at least bison and swig
 cd sphinxbase/ 
 mkdir linux-default-build
@@ -35,7 +38,7 @@ pip install virtualenv
 mkdir project
 cd project/
 #create the virtual environment
-VIRT_DIR = venv
+VIRT_DIR="venv"
 virtualenv $VIRT_DIR
 source $VIRT_DIR/bin/activate
 #now install the python version of sphinx
