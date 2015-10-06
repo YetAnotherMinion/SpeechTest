@@ -14,7 +14,7 @@ env:
 before_install:
 
 install:
-  - install.sh
+  - ./install.sh
 
 before_script:
 
