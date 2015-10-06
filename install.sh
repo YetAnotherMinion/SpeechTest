@@ -38,13 +38,13 @@ pip install virtualenv
 mkdir project
 cd project/
 #create the virtual environment
-VIRT_DIR="venv"
-virtualenv $VIRT_DIR
-source $VIRT_DIR/bin/activate
+virtualenv venv
+source venv/bin/activate
+ls
 #now install the python version of sphinx
 pip install pocketsphinx
 #now you have to manually install a __init__.py to the package
 #so use touch to create the file if it does not exist
-touch $VIRT_DIR/lib/python2.7/site-packages/pocketsphinx/__init__.py
+touch venv/lib/python2.7/site-packages/pocketsphinx/__init__.py
 #leave the virtual env
 deactivate
