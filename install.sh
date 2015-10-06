@@ -13,13 +13,20 @@ git submodule add https://github.com/cmusphinx/pocketsphinx.git
 
 #cmu maintains a mirror of the svn
 git submodule add https://github.com/cmusphinx/kaldi.git
-# you will need at least bison and swig
+echo "==========================="
+echo "==========================="
+
 cd sphinxbase/ 
 mkdir linux-default-build
 BASE_INSTALL_LOCATION=$SPHINX_ROOT/sphinxbase/linux-default-build
 ./autogen.sh --prefix=$BASE_INSTALL_LOCATION
+./configure
+ls
+
 make
 make install
+export LD_LIBRARY_PATH=$SPHINX_ROOT/sphinxbase/linux-default-build/lib
+export PKG_CONFIG_PATH=$SPHINX_ROOT/sphinxbase/linux-default-build/lib/pkgconfig
 #now go and setup pocketsphinx
 cd ../pocketsphinx
 ./autogen.sh
