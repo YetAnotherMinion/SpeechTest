@@ -14,12 +14,12 @@ env:
 before_install:
 
 install:
-	- install.sh
+  - install.sh
 
 before_script:
 
 script:
-	- ls #show the structure
+  - ls #show the structure
 
 
 notifications:
