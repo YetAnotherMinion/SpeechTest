@@ -9,6 +9,12 @@ compiler:
   - clang
   - gcc
 
+addons:
+  apt:
+    packages:
+    	- swig
+    	- bison
+
 env:
 
 before_install:
