@@ -48,6 +48,6 @@ pip install pocketsphinx -t lib/pocketsphinx
 
 #now you have to manually install a __init__.py to the package
 #so use touch to create the file if it does not exist
-touch lib/site-packages/pocketsphinx/__init__.py
+touch ./lib/site-packages/pocketsphinx/__init__.py
 #leave the virtual env
 deactivate
