@@ -8,11 +8,16 @@ SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
 
 
 #use sumodules in SPHINX_ROOT
-# git submodule add https://github.com/cmusphinx/sphinxbase.git
-# git submodule add https://github.com/cmusphinx/pocketsphinx.git
+cd sphinxbase
+git submodule init
+git submodule update
+cd ../pocketsphinx
+git submodule init
+git submodule update
+cd ../kaldi
+git submodule init
+git submodule update
 
-#cmu maintains a mirror of the svn
-# git submodule add https://github.com/cmusphinx/kaldi.git
 echo "==========================="
 echo "==========================="
 
