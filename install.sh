@@ -35,8 +35,10 @@ echo "========================="
 echo $LD_LIBRARY_PATH
 echo $PKG_CONFIG_PATH
 echo "========================="
+# Enable below to run tests of pocket sphinx
+#sudo make check
 
-sudo make check </dev/null >/dev/null 2>&1
+
 #check the package config
 pkg-config --cflags --libs pocketsphinx sphinxbase
 
