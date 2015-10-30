@@ -4,21 +4,15 @@
 # |_ pocketsphinx
 
 #CHANGE THIS BELOW TO YOUR LOCATION
-SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
 
-cd sphinxbase/
-mkdir linux-default-build
-BASE_INSTALL_LOCATION=$SPHINX_ROOT/sphinxbase/linux-default-build
+
+
 
 #for some reason ./ltmain.sh requires root privelege to copy it
 #over into this directory, therefore we must use sudo to first
 #run aclocal. This creates a bunch of files with root permissions
 #though, so if we want to run autogen we need to use sudo as well
 
-sudo aclocal
-
-
-sudo ./autogen.sh --prefix=$BASE_INSTALL_LOCATION
 
 ls
 echo "--------------------------"

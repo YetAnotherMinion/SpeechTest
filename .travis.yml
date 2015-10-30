@@ -19,10 +19,16 @@ addons:
       - libtool
 
 env:
+  - SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
 
 before_install:
 
 install:
+  - cd sphinxbase/
+  - mkdir linux-default-build
+  - BASE_INSTALL_LOCATION=$SPHINX_ROOT/sphinxbase/linux-default-build
+  - sudo aclocal --verbose
+  - sudo ./autogen.sh --prefix=$BASE_INSTALL_LOCATION
   - ./install.sh
 
 before_script:
