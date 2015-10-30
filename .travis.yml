@@ -27,7 +27,7 @@ install:
   - cd sphinxbase/
   - mkdir linux-default-build
   - BASE_INSTALL_LOCATION=$SPHINX_ROOT/sphinxbase/linux-default-build
-  - sudo aclocal --verbose
+  - sudo libtoolize --force --copy #this copies ltmain.sh
   - sudo ./autogen.sh --prefix=$BASE_INSTALL_LOCATION
   - ./install.sh
 
