@@ -6,29 +6,6 @@
 #CHANGE THIS BELOW TO YOUR LOCATION
 SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
 
-
-#use sumodules in SPHINX_ROOT
-cd sphinxbase
-ls
-git submodule init
-git submodule update
-ls
-echo "==========================="
-
-cd ../pocketsphinx
-ls
-git submodule init
-git submodule update
-echo "==========================="
-
-cd ../kaldi
-ls
-git submodule init
-git submodule update
-
-echo "==========================="
-echo "==========================="
-
 cd sphinxbase/
 mkdir linux-default-build
 BASE_INSTALL_LOCATION=$SPHINX_ROOT/sphinxbase/linux-default-build
