@@ -9,24 +9,40 @@ SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
 
 #use sumodules in SPHINX_ROOT
 cd sphinxbase
+ls
 git submodule init
 git submodule update
+ls
+echo "==========================="
+
 cd ../pocketsphinx
+ls
 git submodule init
 git submodule update
+echo "==========================="
+
 cd ../kaldi
+ls
 git submodule init
 git submodule update
 
 echo "==========================="
 echo "==========================="
 
-cd sphinxbase/ 
+cd sphinxbase/
 mkdir linux-default-build
 BASE_INSTALL_LOCATION=$SPHINX_ROOT/sphinxbase/linux-default-build
+
 ./autogen.sh --prefix=$BASE_INSTALL_LOCATION
-./configure
 ls
+aclocal
+autoconf
+autoheader
+automake --add-missing
+ls
+echo "--------------------------"
+./configure
+
 
 make
 make install
@@ -47,17 +63,17 @@ pkg-config --cflags --libs pocketsphinx sphinxbase
 
 
 
-#return to base
-cd ../
-#create a project folder to work in
-mkdir project
-cd project/
-mkdir lib
-#now install the python version of sphinx
-pip install pocketsphinx -t lib/pocketsphinx
+# #return to base
+# cd ../
+# #create a project folder to work in
+# mkdir project
+# cd project/
+# mkdir lib
+# #now install the python version of sphinx
+# pip install pocketsphinx -t lib/pocketsphinx
 
-#now you have to manually install a __init__.py to the package
-#so use touch to create the file if it does not exist
-touch ./lib/site-packages/pocketsphinx/__init__.py
-#leave the virtual env
-deactivate
+# #now you have to manually install a __init__.py to the package
+# #so use touch to create the file if it does not exist
+# touch ./lib/site-packages/pocketsphinx/__init__.py
+# #leave the virtual env
+# deactivate
