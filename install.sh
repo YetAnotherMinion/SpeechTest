@@ -7,7 +7,7 @@
 # configured in travis
 # SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
 
-cd sphinxbase/k
+cd sphinxbase/
 mkdir linux-default-build
 BASE_INSTALL_LOCATION=$SPHINX_ROOT/sphinxbase/linux-default-build
 sudo ./autogen.sh </dev/null >/dev/null 2>&1 #this triggers the problem with the ltmain
