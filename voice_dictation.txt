@@ -1,0 +1,27 @@
+#TEST 1
+#=============
+['up','down','motor','left','right','close','open','alpha','bravo','charlie','delta','echo','foxtrot','golf','hotel','india','juliet','kilo','lima','mike','November','Oscar','Papa','Quebec','Romeo','Sierra','Tango','Uniform','Victor','Whiskey','Xray','Yankee','Zulu','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Zero']
+
+#TEST 2
+#=========
+['charlie','Six','india','juliet','kilo','left','right','close','lima','mike','echo','foxtrot','golf','hotel','Yankee','Zulu','November','Oscar','Papa','Quebec','Romeo','Sierra','Tango','delta','One','Two','Three','Four','Five','Uniform','Victor','Whiskey','Xray','Seven','Eight','up','down','motor','open','alpha','bravo','Nine','Zero']
+
+#TEST 3
+#==========
+['Tango', 'close', 'Nine', 'left', 'Romeo', 'golf', 'Quebec', 'delta', 'One', 'Uniform', 'charlie', 'juliet', 'lima', 'motor', 'bravo', 'Papa', 'November', 'foxtrot', 'down', 'india', 'right', 'mike', 'Zulu', 'kilo', 'Xray', 'hotel', 'Three', 'Six', 'echo', 'Five', 'Seven', 'Zero', 'alpha', 'Victor', 'Whiskey', 'Two', 'Eight', 'Four', 'up', 'Yankee', 'open', 'Sierra', 'Oscar']
+
+#TEST 4
+#=========
+['Oscar', 'Uniform', 'left', 'Victor', 'Six', 'echo', 'kilo', 'motor', 'Zero', 'Two', 'Quebec', 'golf', 'mike', 'Three', 'foxtrot', 'Four', 'Whiskey', 'hotel', 'Sierra', 'close', 'juliet', 'Seven', 'bravo', 'Five', 'One', 'Papa', 'open', 'Eight', 'Yankee', 'right', 'Romeo', 'Xray', 'Nine', 'india', 'down', 'Tango', 'Zulu', 'delta', 'lima', 'November', 'up', 'alpha', 'charlie']
+
+#TEST 5
+#==========
+['Zero', 'Quebec', 'November', 'motor', 'left', 'Nine', 'juliet', 'Zulu', 'down', 'echo', 'Eight', 'Tango', 'Six', 'Xray', 'close', 'Papa', 'Five', 'mike', 'golf', 'Romeo', 'up', 'Three', 'charlie', 'india', 'foxtrot', 'open', 'Yankee', 'Four', 'alpha', 'lima', 'Oscar', 'Uniform', 'Victor', 'Seven', 'Sierra', 'Whiskey', 'kilo', 'One', 'right', 'Two', 'bravo', 'hotel', 'delta']
+
+#TEST 6
+#=========
+['golf', 'One', 'Victor', 'charlie', 'left', 'foxtrot', 'open', 'Zero', 'Papa', 'delta', 'kilo', 'Sierra', 'Four', 'down', 'bravo', 'Two', 'close', 'Three', 'Quebec', 'Nine', 'Yankee', 'Uniform', 'Five', 'motor', 'Xray', 'right', 'Whiskey', 'lima', 'Romeo', 'Tango', 'echo', 'November', 'Oscar', 'mike', 'Eight', 'alpha', 'Zulu', 'hotel', 'juliet', 'Seven', 'india', 'up', 'Six']
+
+#TEST 7
+#=========
+['left', 'kilo', 'right', 'foxtrot', 'up', 'down', 'Oscar', 'hotel', 'Whiskey', 'charlie', 'Papa', 'Six', 'Eight', 'Quebec', 'November', 'alpha', 'Sierra', 'Four', 'delta', 'Victor', 'open', 'Nine', 'echo', 'mike', 'Zero', 'Five', 'Romeo', 'golf', 'Uniform', 'One', 'Seven', 'Tango', 'juliet', 'Xray', 'india', 'Two', 'close', 'lima', 'Three', 'bravo', 'Yankee', 'motor', 'Zulu']
