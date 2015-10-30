@@ -12,7 +12,11 @@
 #over into this directory, therefore we must use sudo to first
 #run aclocal. This creates a bunch of files with root permissions
 #though, so if we want to run autogen we need to use sudo as well
-
+cd sphinxbase/
+mkdir linux-default-build
+BASE_INSTALL_LOCATION=$SPHINX_ROOT/sphinxbase/linux-default-build
+sudo ./autogen.sh #this triggers the problem with the ltmain
+sudo ./autogen.sh --prefix=$BASE_INSTALL_LOCATION #this runs libtoolize a second time which now correctly copies the ltmain.sh
 
 ls
 echo "--------------------------"
