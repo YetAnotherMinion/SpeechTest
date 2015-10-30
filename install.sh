@@ -18,24 +18,21 @@ BASE_INSTALL_LOCATION=$SPHINX_ROOT/sphinxbase/linux-default-build
 sudo ./autogen.sh #this triggers the problem with the ltmain
 sudo ./autogen.sh --prefix=$BASE_INSTALL_LOCATION #this runs libtoolize a second time which now correctly copies the ltmain.sh
 
-ls
-echo "--------------------------"
-./configure
+sudo make
+sudo make install
 
-make
-make install
 export LD_LIBRARY_PATH=$SPHINX_ROOT/sphinxbase/linux-default-build/lib
 export PKG_CONFIG_PATH=$SPHINX_ROOT/sphinxbase/linux-default-build/lib/pkgconfig
 #now go and setup pocketsphinx
 cd ../pocketsphinx
-./autogen.sh
 mkdir $SPHINX_ROOT/pocketsphinx/linux-default-build
 export SPHINXBASE_LIBS=$BASE_INSTALL_LOCATION
 POCKET_INSTALL_LOCATION=$SPHINX_ROOT/pocketsphinx/linux-default-build
-./configure --prefix=$POCKET_INSTALL_LOCATION
-make clean
-make check
-make install
+sudo ./autogen.sh #this triggers the problem with the ltmain
+sudo ./autogen.sh --prefix=$POCKET_INSTALL_LOCATION #this runs libtoolize a second time which now correctly copies the ltmain.sh
+
+sudo make check
+sudo make install
 #check the package config
 pkg-config --cflags --libs pocketsphinx sphinxbase
 
