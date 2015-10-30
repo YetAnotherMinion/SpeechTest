@@ -1,6 +1,6 @@
 language: cpp
-#run on latest container based infrastructure
-sudo: false
+#need sudo for broken behavior of aclocal needed by sphinx base
+sudo: true
 
 branches:
   - master

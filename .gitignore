@@ -1,3 +1,8 @@
+# Do not follow the submodules since they do build in place
+kaldi/*
+pocketsphinx/*
+sphinxbase/*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
