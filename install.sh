@@ -8,11 +8,11 @@ SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
 
 
 #use sumodules in SPHINX_ROOT
-git submodule add https://github.com/cmusphinx/sphinxbase.git
-git submodule add https://github.com/cmusphinx/pocketsphinx.git
+# git submodule add https://github.com/cmusphinx/sphinxbase.git
+# git submodule add https://github.com/cmusphinx/pocketsphinx.git
 
 #cmu maintains a mirror of the svn
-git submodule add https://github.com/cmusphinx/kaldi.git
+# git submodule add https://github.com/cmusphinx/kaldi.git
 echo "==========================="
 echo "==========================="
 
@@ -37,6 +37,11 @@ POCKET_INSTALL_LOCATION=$SPHINX_ROOT/pocketsphinx/linux-default-build
 make clean
 make check
 make install
+#check the package config
+pkg-config --cflags --libs pocketsphinx sphinxbase
+
+
+
 #return to base
 cd ../
 #create a project folder to work in
