@@ -1,7 +1,15 @@
 # Do not follow the submodules since they do build in place
-kaldi/*
-pocketsphinx/*
-sphinxbase/*
+kaldi/
+pocketsphinx/
+sphinxbase/
+venv/
+
+#do no include resource file unless explicityl added
+res/*
+
+# #ignore top level build folders
+bin/*
+obj/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

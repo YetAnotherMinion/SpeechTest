@@ -22,6 +22,7 @@ env:
   - SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
 
 before_install:
+  - mkdir bin
 
 install:
   - ./install.sh

@@ -7,3 +7,6 @@
 [submodule "kaldi"]
 	path = kaldi
 	url = https://github.com/cmusphinx/kaldi.git
+[submodule "EasyVR-Arduino"]
+	path = EasyVR-Arduino
+	url = git@github.com:RoboTech-srl/EasyVR-Arduino.git
