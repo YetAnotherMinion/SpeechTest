@@ -24,7 +24,7 @@ sleep_msec(int32 ms)
 }
 
 #define SAMPLE_RATE 16000
-#define AUDIO_DEVICE_NAME
+#define AUDIO_DEVICE_NAME "foo"
 
 static void
 recognize_from_microphone()

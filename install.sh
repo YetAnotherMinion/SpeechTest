@@ -41,18 +41,20 @@ echo "========================="
 echo $LD_LIBRARY_PATH
 echo $PKG_CONFIG_PATH
 echo "========================="
+pkg-config --cflags --libs pocketsphinx sphinxbase
+echo "========================="
 # Enable below to run tests of pocket sphinx
 #sudo make check
 
 
 #check the package config
-pkg-config --cflags --libs pocketsphinx sphinxbase
+
 
 gcc -o bin/hello_ps src/hello_ps.c \
     -DMODELDIR=\"`pkg-config --variable=modeldir pocketsphinx`\" \
     `pkg-config --cflags --libs pocketsphinx sphinxbase`
 
-./hello_ps
+./bin/hello_ps
 
 # #return to base
 # cd ../
