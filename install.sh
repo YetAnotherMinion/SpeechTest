@@ -36,19 +36,19 @@ sudo make </dev/null >/dev/null 2>&1 #build it first
 sudo make install </dev/null >/dev/null 2>&1
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$POCKET_INSTALL_LOCATION/lib
 export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$POCKET_INSTALL_LOCATION/lib/pkgconfig
+# Enable below to run tests of pocket sphinx
+# sudo make check
 
+# return to main project directory
+cd $SPHINX_ROOT
+
+#check the package config
 echo "========================="
 echo $LD_LIBRARY_PATH
 echo $PKG_CONFIG_PATH
 echo "========================="
 pkg-config --cflags --libs pocketsphinx sphinxbase
 echo "========================="
-# Enable below to run tests of pocket sphinx
-#sudo make check
-
-
-#check the package config
-
 
 gcc -o bin/hello_ps src/hello_ps.c \
     -DMODELDIR=\"`pkg-config --variable=modeldir pocketsphinx`\" \
