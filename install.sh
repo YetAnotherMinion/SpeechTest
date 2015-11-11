@@ -15,9 +15,9 @@ sudo ./autogen.sh --prefix=$BASE_INSTALL_LOCATION #this runs libtoolize a second
 
 sudo make </dev/null >/dev/null 2>&1
 sudo make install </dev/null >/dev/null 2>&1
-
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SPHINX_ROOT/sphinxbase/linux-default-build/lib
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$SPHINX_ROOT/sphinxbase/linux-default-build/lib/pkgconfig
+# Note that you must export the variables otherwise pkg-config will not find them
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$SPHINX_ROOT/sphinxbase/linux-default-build/lib/
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$SPHINX_ROOT/sphinxbase/linux-default-build/lib/pkgconfig/
 echo "========================="
 echo $LD_LIBRARY_PATH
 echo $PKG_CONFIG_PATH
@@ -34,8 +34,8 @@ sudo ./autogen.sh --prefix=$POCKET_INSTALL_LOCATION #this runs libtoolize a seco
 
 sudo make </dev/null >/dev/null 2>&1 #build it first
 sudo make install </dev/null >/dev/null 2>&1
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$POCKET_INSTALL_LOCATION/lib
-export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$POCKET_INSTALL_LOCATION/lib/pkgconfig
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$POCKET_INSTALL_LOCATION/lib/
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$POCKET_INSTALL_LOCATION/lib/pkgconfig/
 # Enable below to run tests of pocket sphinx
 # sudo make check
 

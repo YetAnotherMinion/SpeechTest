@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    fh = fopen("res/goforward.raw", "rb");
+    fh = fopen("res/gripper_open.raw", "rb");
     if (fh == NULL) {
         fprintf(stderr, "Unable to open input file goforward.raw\n");
         return -1;
