@@ -1,6 +1,7 @@
 import unittest
 import os, sys, inspect
 
+#import path hacks required to read the code sitting in the src directory
 cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
 (root_folder,tail) = os.path.split(cmd_folder)
 if root_folder not in sys.path:

@@ -1,0 +1,3 @@
+Block words:
+	- {filepath : "sample1_normalized/echo.raw", transcript : "echo" }
+	- {filepath : "sample1_normalized"}
