@@ -45,8 +45,6 @@ class CandiateUtterance(object):
         self.hypothesis_segments = []
         self.nbest = []
 
-
-
 def decode_from_file(filename):
     MODELDIR = "pocketsphinx/model"
     DATADIR = "pocketsphinx/test/data"
@@ -77,20 +75,7 @@ def decode_from_file(filename):
     cu.hypothesis = decoder.hyp()
     cu.hypothesis_segments = [seg.word for seg in decoder.seg()]
     cu.nbest = zip(range(10), decoder.nbest())
-
     return cu
-
-fn = path.join('res', 'goforward.raw')
-candidate = decode_from_file(fn)
-
-print ('Best hypothesis: ', candidate.hypothesis.hypstr, " model score: ", candidate.hypothesis.best_score, " confidence: ", candidate.hypothesis.prob)
-
-print ('Best hypothesis segments: ', candidate.hypothesis_segments)
-
-# Access N best decodings.
-print ('Best 10 hypothesis: ')
-for i, best in candidate.nbest:
-    print (best.hypstr, best.score)
 
 # stream = open(path.join(DATADIR, 'goforward.mfc'), 'rb')
 # stream.read(4)
