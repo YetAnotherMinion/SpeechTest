@@ -59,30 +59,51 @@ class TestSingleWord(unittest.TestCase):
     def test_single_words(self):
         in_file = os.path.join(G_TEST_DIR, 'command_words.yml')
         with open(in_file, 'r') as f:
-            samples = yaml.safe_load(f)
+            testcases = yaml.safe_load(f)
 
-        def flatten(container, depth = 0):
-            if depth > 8:
-                yield (None,)
+        def flatten(container):
+            if isinstance(container, basestring):
+                yield (container,)
                 raise StopIteration()
+            try:
+                for key,value in container.items():
+                    for item in flatten(value):
+                        yield (key,) + item
+            except AttributeError:
+                for value in container:
+                    for item in flatten(value):
+                        yield item
+
+
+        word_score = {}
+        count = 0
+
+        for tc in flatten(testcases):
+            sample_word = tc[-1]
+            count += 1
+            if not sample_word in word_score:
+                word_score[sample_word] = [0, 1]
             else:
-                if isinstance(container, basestring):
-                    yield (container,)
-                    raise StopIteration()
-                try:
-                    for key,value in container.items():
-                        for item in flatten(value, depth+1):
-                            yield (key,) + item
-                except AttributeError:
-                    for value in container:
-                        for item in flatten(value, depth+1):
-                            yield item 
+                word_score[sample_word][1] += 1
+            fn = os.path.join(G_PROJECT_ROOT_DIR, *tc[0:-1])
+            with suppress_stdout_stderr():
+                x = decode_from_file(fn)
 
-            
+            if x.hypothesis.hypstr == sample_word:
+                word_score[sample_word][0] += 1
+            # print ('Best hypothesis: ', x.hypothesis.hypstr, " model score: ", x.hypothesis.best_score, " confidence: ", x.hypothesis.prob)
+            # print ('Best hypothesis segments: ', x.hypothesis_segments)
 
+            # # Access N best decodings.
+            # print ('Best 10 hypothesis: ')
+            # for i, best in x.nbest:
+            #     print (best.hypstr, best.score)
 
-        for thing in flatten(samples,0):
-            print thing
+        row_format = "{:<10}{:>7}" + " "*4 + "{:>.4}"
+        for key,value in word_score.items():
+            ratio = "{}/{}".format(value[0], value[1])
+            print row_format.format(key, ratio, (float(value[0])/ float(value[1])*100))
+
 
         
 
