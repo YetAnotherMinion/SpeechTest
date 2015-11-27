@@ -74,10 +74,8 @@ class TestSingleWord(unittest.TestCase):
                     for item in flatten(value):
                         yield item
 
-
         word_score = {}
         count = 0
-
         for tc in flatten(testcases):
             sample_word = tc[-1]
             count += 1
@@ -86,26 +84,18 @@ class TestSingleWord(unittest.TestCase):
             else:
                 word_score[sample_word][1] += 1
             fn = os.path.join(G_PROJECT_ROOT_DIR, *tc[0:-1])
+            print fn
             with suppress_stdout_stderr():
                 x = decode_from_file(fn)
 
             if x.hypothesis.hypstr == sample_word:
                 word_score[sample_word][0] += 1
-            # print ('Best hypothesis: ', x.hypothesis.hypstr, " model score: ", x.hypothesis.best_score, " confidence: ", x.hypothesis.prob)
-            # print ('Best hypothesis segments: ', x.hypothesis_segments)
-
-            # # Access N best decodings.
-            # print ('Best 10 hypothesis: ')
-            # for i, best in x.nbest:
-            #     print (best.hypstr, best.score)
 
         row_format = "{:<10}{:>7}" + " "*4 + "{:>.4}"
         for key,value in word_score.items():
             ratio = "{}/{}".format(value[0], value[1])
             print row_format.format(key, ratio, (float(value[0])/ float(value[1])*100))
 
-
-        
 
 if __name__ == '__main__':
     unittest.main()

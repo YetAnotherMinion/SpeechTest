@@ -31,6 +31,7 @@ before_script:
 
 script:
   - ls #show the structure
+  - python tests/single_word_unittest.py
 
 
 notifications:
