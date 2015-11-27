@@ -1,3 +1,54 @@
-Block words:
-	- {filepath : "sample1_normalized/echo.raw", transcript : "echo" }
-	- {filepath : "sample1_normalized"}
+res:
+  - sample1:
+    - split_sample1: &id0001
+      - alpha.wav: alpha
+      - bravo.wav: bravo
+      - charlie.wav: charlie
+      - close.wav: close
+      - delta.wav: delta
+      - down.wav: down
+      - echo.wav: echo
+      - eight.wav: eight
+      - five.wav: five
+      - four.wav: four
+      - foxtrot.wav: foxtrot
+      - golf.wav: golf
+      - hotel.wav: hotel
+      - india.wav: india
+      - juliet.wav: juliet
+      - kilo.wav: kilo
+      - left.wav: left
+      - lima.wav: lima
+      - mike.wav: mike
+      - motor.wav: motor
+      - nine.wav: nine
+      - november.wav: november
+      - one.wav: one
+      - open.wav: open
+      - oscar.wav: oscar
+      - papa.wav: papa
+      - qubec.wav: qubec
+      - right.wav: right
+      - romeo.wav: romeo
+      - seven.wav: seven
+      - sierra.wav: sierra
+      - six.wav: six
+      - tango.wav: tango
+      - ten.wav: ten
+      - three.wav: three
+      - two.wav: two
+      - uniform.wav: uniform
+      - up.wav: up
+      - victor.wav: victor
+      - whiskey.wav: whiskey
+      - xray.wav: xray
+      - yankee.wav: yankee
+      - zulu.wav: zulu
+    - split_sample1_normalized: *id0001
+
+# - sample2:
+# - sample3:
+# - sample4:
+# - sample5:
+# - sample6:
+# - sample7:

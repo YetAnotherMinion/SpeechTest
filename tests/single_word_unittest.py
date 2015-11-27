@@ -1,11 +1,13 @@
 import unittest
 import os, sys, inspect
+import yaml
+import itertools
 
 #import path hacks required to read the code sitting in the src directory
-cmd_folder = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
-(root_folder,tail) = os.path.split(cmd_folder)
-if root_folder not in sys.path:
-     sys.path.insert(0, root_folder)
+G_TEST_DIR = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
+(G_PROJECT_ROOT_DIR,tail) = os.path.split(G_TEST_DIR)
+if G_PROJECT_ROOT_DIR not in sys.path:
+     sys.path.insert(0, G_PROJECT_ROOT_DIR)
 
 from src.demo import decode_from_file
 
@@ -40,19 +42,49 @@ class suppress_stdout_stderr(object):
         os.close(self.null_fds[1])
 
 class TestSingleWord(unittest.TestCase):
-	def setUp(self):
-		pass
-	def test_goforward(self):
-		with suppress_stdout_stderr():
-			fn = os.path.join(root_folder, 'res', 'goforward.raw')
-			x = decode_from_file(fn)
-		print ('Best hypothesis: ', x.hypothesis.hypstr, " model score: ", x.hypothesis.best_score, " confidence: ", x.hypothesis.prob)
-		print ('Best hypothesis segments: ', x.hypothesis_segments)
+    def setUp(self):
+        pass
+    # def test_goforward(self):
+    #     with suppress_stdout_stderr():
+    #         fn = os.path.join(G_PROJECT_ROOT_DIR, 'res', 'goforward.raw')
+    #         x = decode_from_file(fn)
+    #     print ('Best hypothesis: ', x.hypothesis.hypstr, " model score: ", x.hypothesis.best_score, " confidence: ", x.hypothesis.prob)
+    #     print ('Best hypothesis segments: ', x.hypothesis_segments)
 
-		# Access N best decodings.
-		print ('Best 10 hypothesis: ')
-		for i, best in x.nbest:
-		    print (best.hypstr, best.score)
+    #     # Access N best decodings.
+    #     print ('Best 10 hypothesis: ')
+    #     for i, best in x.nbest:
+    #         print (best.hypstr, best.score)
+
+    def test_single_words(self):
+        in_file = os.path.join(G_TEST_DIR, 'command_words.yml')
+        with open(in_file, 'r') as f:
+            samples = yaml.safe_load(f)
+
+        def flatten(container, depth = 0):
+            if depth > 8:
+                yield (None,)
+                raise StopIteration()
+            else:
+                if isinstance(container, basestring):
+                    yield (container,)
+                    raise StopIteration()
+                try:
+                    for key,value in container.items():
+                        for item in flatten(value, depth+1):
+                            yield (key,) + item
+                except AttributeError:
+                    for value in container:
+                        for item in flatten(value, depth+1):
+                            yield item 
+
+            
+
+
+        for thing in flatten(samples,0):
+            print thing
+
+        
 
 if __name__ == '__main__':
-	unittest.main()
+    unittest.main()
