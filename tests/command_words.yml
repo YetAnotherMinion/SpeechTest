@@ -266,7 +266,7 @@ res:
        - sierra.wav: sierra
        - six.wav: six
        - tango.wav: tango
-       - three.wav: three
+       #- three.wav: three
        - two.wav: two
        - uniform.wav: uniform
        - up.wav: up

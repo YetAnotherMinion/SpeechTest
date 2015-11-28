@@ -34,6 +34,7 @@
 
 
 from os import environ, path
+import time
 
 
 from pocketsphinx.pocketsphinx import *
@@ -45,18 +46,23 @@ class CandiateUtterance(object):
         self.hypothesis_segments = []
         self.nbest = []
 
-def decode_from_file(filename):
-    MODELDIR = "pocketsphinx/model"
-    DATADIR = "pocketsphinx/test/data"
+def decode_from_file(filename, decoder = None):
+    if decoder == None:
+        MODELDIR = "pocketsphinx/model"
+        DATADIR = "pocketsphinx/test/data"
 
-    # Create a decoder with certain model
-    config = Decoder.default_config()
-    config.set_string('-hmm', path.join(MODELDIR, 'en-us/en-us'))
-    config.set_string('-lm', path.join(MODELDIR, 'en-us/en-us.lm.bin'))
-    config.set_string('-dict', path.join(MODELDIR, 'en-us/cmudict-en-us.dict'))
+        # Create a decoder with certain model
+        config = Decoder.default_config()
+        config.set_string('-hmm', path.join(MODELDIR, 'en-us/en-us'))
+        config.set_string('-lm', path.join(MODELDIR, 'en-us/en-us.lm.bin'))
+        config.set_string('-dict', path.join(MODELDIR, 'en-us/cmudict-en-us.dict'))
 
-    # Decode streaming data.
-    decoder = Decoder(config)
+        # Decode streaming data.
+        try:
+            decoder = Decoder(config)
+        except RuntimeError:
+            time.sleep(1) # try waiting and trying again
+            decoder = Decoder(config)
 
     # print ("Pronunciation for word 'hello' is ", decoder.lookup_word("hello"))
     # print ("Pronunciation for word 'abcdf' is ", decoder.lookup_word("abcdf"))

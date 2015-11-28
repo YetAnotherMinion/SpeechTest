@@ -3,6 +3,9 @@ import os, sys, inspect
 import yaml
 import itertools
 
+from pocketsphinx.pocketsphinx import *
+from sphinxbase.sphinxbase import *
+
 #import path hacks required to read the code sitting in the src directory
 G_TEST_DIR = os.path.realpath(os.path.abspath(os.path.split(inspect.getfile( inspect.currentframe() ))[0]))
 (G_PROJECT_ROOT_DIR,tail) = os.path.split(G_TEST_DIR)
@@ -76,6 +79,23 @@ class TestSingleWord(unittest.TestCase):
 
         word_score = {}
         count = 0
+
+        MODELDIR = "pocketsphinx/model"
+        DATADIR = "pocketsphinx/test/data"
+
+        # Create a decoder with certain model
+        config = Decoder.default_config()
+        config.set_string('-hmm', os.path.join(MODELDIR, 'en-us/en-us'))
+        config.set_string('-lm', os.path.join(MODELDIR, 'en-us/en-us.lm.bin'))
+        config.set_string('-dict', os.path.join(MODELDIR, 'en-us/cmudict-en-us.dict'))
+
+        # Decode streaming data.
+        try:
+            decoder = Decoder(config)
+        except RuntimeError:
+            time.sleep(1) # try waiting and trying again
+            decoder = Decoder(config)
+
         for tc in flatten(testcases):
             sample_word = tc[-1]
             count += 1
@@ -86,7 +106,7 @@ class TestSingleWord(unittest.TestCase):
             fn = os.path.join(G_PROJECT_ROOT_DIR, *tc[0:-1])
             print fn
             with suppress_stdout_stderr():
-                x = decode_from_file(fn)
+                x = decode_from_file(fn, decoder)
 
             if x.hypothesis.hypstr == sample_word:
                 word_score[sample_word][0] += 1
