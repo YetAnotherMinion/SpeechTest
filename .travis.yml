@@ -24,9 +24,12 @@ env:
 
 before_install:
   - mkdir bin
+  - wget -P /tmp/portaudio http://www.portaudio.com/archives/pa_stable_v19_20140130.tgz
+  - tar -xzvf /tmp/portaudio/pa_stable_v19_20140130.tgz -C /tmp/portaudio/
+  - cd /tmp/portaudio/portaudio/ && ./configure && make clean
+  - make && sudo make install
 
 install:
-  - sudo -E apt-get install -yq --no-install-suggests --no-install-recommends --force-yes portaudio-devel
   - ./install.sh
 
 before_script:
