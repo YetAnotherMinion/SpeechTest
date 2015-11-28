@@ -235,7 +235,7 @@ res:
     - split_sample6: &id0006
        - alpha.wav: alpha
        - bravo.wav: bravo
-       - charile.wav: charile
+       - charlie.wav: charlie
        - close.wav: close
        - delta.wav: delta
        - down.wav: down

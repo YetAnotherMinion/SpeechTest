@@ -41,8 +41,11 @@ class suppress_stdout_stderr(object):
         os.dup2(self.save_fds[0],1)
         os.dup2(self.save_fds[1],2)
         # Close the null files
+        os.close(self.save_fds[0])
+        os.close(self.save_fds[1])
         os.close(self.null_fds[0])
         os.close(self.null_fds[1])
+
 
 class TestSingleWord(unittest.TestCase):
     def setUp(self):
