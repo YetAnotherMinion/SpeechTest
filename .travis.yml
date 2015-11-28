@@ -17,17 +17,18 @@ addons:
       - autoconf
       - automake
       - libtool
-      - portaudio-devel # this is disallowed
+      - portaudio19-dev # this is disallowed
 
 env:
   - SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
 
 before_install:
   - mkdir bin
-  - wget -P /tmp/portaudio http://www.portaudio.com/archives/pa_stable_v19_20140130.tgz
-  - tar -xzvf /tmp/portaudio/pa_stable_v19_20140130.tgz -C /tmp/portaudio/
-  - cd /tmp/portaudio/portaudio/ && ./configure && make clean
-  - make && sudo make install
+  # - wget -P /tmp/portaudio http://www.portaudio.com/archives/pa_stable_v19_20140130.tgz
+  # - tar -xzvf /tmp/portaudio/pa_stable_v19_20140130.tgz -C /tmp/portaudio/
+  # - cd /tmp/portaudio/portaudio/ && ./configure && make clean
+  # - make && sudo make install 
+  # - cd $SPHINX_ROOT
 
 install:
   - ./install.sh
