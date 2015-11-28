@@ -17,7 +17,7 @@ addons:
       - autoconf
       - automake
       - libtool
-      - portaudio-devel
+      - portaudio-devel # this is disallowed
 
 env:
   - SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
@@ -26,6 +26,7 @@ before_install:
   - mkdir bin
 
 install:
+  - sudo -E apt-get install -yq --no-install-suggests --no-install-recommends --force-yes portaudio-devel
   - ./install.sh
 
 before_script:
