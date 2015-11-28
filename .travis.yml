@@ -17,6 +17,7 @@ addons:
       - autoconf
       - automake
       - libtool
+      - portaudio-devel
 
 env:
   - SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
