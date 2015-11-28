@@ -68,14 +68,14 @@ def decode_from_file(filename, decoder = None):
     # print ("Pronunciation for word 'abcdf' is ", decoder.lookup_word("abcdf"))
 
     decoder.start_utt()
-    stream = open(filename, 'rb')
-    while True:
-        buf = stream.read(1024)
-        if buf:
-            decoder.process_raw(buf, False, False)
-        else:
-            break
-    decoder.end_utt()
+    with open(filename, 'rb') as stream:
+        while True:
+            buf = stream.read(1024)
+            if buf:
+                decoder.process_raw(buf, False, False)
+            else:
+                break
+        decoder.end_utt()
 
     cu = CandiateUtterance()
     cu.hypothesis = decoder.hyp()
