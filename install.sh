@@ -54,8 +54,6 @@ gcc -o bin/hello_ps src/hello_ps.c \
     -DMODELDIR=\"`pkg-config --variable=modeldir pocketsphinx`\" \
     `pkg-config --cflags --libs pocketsphinx sphinxbase`
 
-./bin/hello_ps
-
 # #return to base
 # cd ../
 # #create a project folder to work in
