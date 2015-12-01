@@ -78,6 +78,7 @@ class TestSingleWord(unittest.TestCase):
 
         #find out what commit we are running under
         label = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'])
+        label = lable.strip('\n')
         time_label = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d|%H:%M:%S')
         out_fn = "".join(label) + "_" + time_label + ".yml"
         with open(out_fn, "w") as f:
