@@ -66,7 +66,6 @@ def loop_decode(seconds = 3, decoder = None):
             frames = []
             n_frames = int(RATE / CHUNK * RECORD_SECONDS)
             for i in range(0, n_frames):
-                print i
                 data = stream.read(CHUNK)
                 frames.append(data)
             print("* done recording")
@@ -75,12 +74,14 @@ def loop_decode(seconds = 3, decoder = None):
             p.terminate()
             
             decoder.start_utt()
+            print "Frame length:", len(frames)
             for buf in frames:
                 if buf:
                     decoder.process_raw(buf, False, False)
                 else:
                     break
             decoder.end_utt()
+            del frames
 
             cu = CandiateUtterance()
             cu.hypothesis = decoder.hyp()

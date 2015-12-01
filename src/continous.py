@@ -30,17 +30,23 @@ def continous():
     config.set_string('-dict', os.path.join(MODELDIR, 'en-us/cmudict-en-us.dict'))
      # Decode streaming data.
     try:
-    	with suppress_stdout_stderr():
-        	decoder = Decoder(config)
+        with suppress_stdout_stderr():
+            decoder = Decoder(config)
     except RuntimeError:
         time.sleep(1) # try waiting and trying again
         decoder = Decoder(config)
 
     looper = loop_decode(decoder=decoder)
     x = looper.next()
-    print x
-    x = looper.next()
-    print x
+    assert(x == None)
+    for y in xrange(0,10):
+        x = looper.next()
+
+        print "Guess:", x.hypothesis.hypstr
+
+        print "="*50
+        for guess in x.hypothesis_segments:
+            print guess
 
 if __name__ == '__main__':
-	continous()
+    continous()

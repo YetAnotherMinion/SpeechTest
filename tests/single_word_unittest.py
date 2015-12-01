@@ -42,6 +42,8 @@ class TestSingleWord(unittest.TestCase):
         with open(in_file, 'r') as f:
             testcases = yaml.safe_load(f)
 
+        # helper method to turn the yaml representation of directories
+        # into tuples that will be passed to os.path.join
         def flatten(container):
             if isinstance(container, basestring):
                 yield (container,)
