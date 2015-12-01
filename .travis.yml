@@ -17,7 +17,7 @@ addons:
       - autoconf
       - automake
       - libtool
-      - portaudio19-dev # this is disallowed
+      - portaudio19-dev
 
 env:
   - SPHINX_ROOT=${SPHINX_ROOT:-$(pwd)}
@@ -27,7 +27,8 @@ before_install:
   # - wget -P /tmp/portaudio http://www.portaudio.com/archives/pa_stable_v19_20140130.tgz
   # - tar -xzvf /tmp/portaudio/pa_stable_v19_20140130.tgz -C /tmp/portaudio/
   # - cd /tmp/portaudio/portaudio/ && ./configure && make clean
-  # - make && sudo make install 
+  # - make && sudo make install && ldconfig /usr/local/lib
+  # - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
   # - cd $SPHINX_ROOT
 
 install:
@@ -38,7 +39,6 @@ before_script:
 script:
   - ls #show the structure
   - python tests/single_word_unittest.py
-
 
 notifications:
   webhooks:

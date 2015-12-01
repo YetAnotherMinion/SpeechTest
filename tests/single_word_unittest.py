@@ -103,21 +103,28 @@ class TestSingleWord(unittest.TestCase):
             sample_word = tc[-1]
             count += 1
             if not sample_word in word_score:
-                word_score[sample_word] = [0, 1]
+                word_score[sample_word] = {"correct":0, "total":1}
             else:
-                word_score[sample_word][1] += 1
+                word_score[sample_word]["total"] += 1
             fn = os.path.join(G_PROJECT_ROOT_DIR, *tc[0:-1])
             print fn
             with suppress_stdout_stderr():
                 x = decode_from_file(fn, decoder)
 
             if x.hypothesis.hypstr == sample_word:
-                word_score[sample_word][0] += 1
+                word_score[sample_word]["correct"] += 1
 
-        row_format = "{:<10}{:>7}" + " "*4 + "{:>.4}"
-        for key,value in word_score.items():
-            ratio = "{}/{}".format(value[0], value[1])
-            print row_format.format(key, ratio, (float(value[0])/ float(value[1])*100))
+        tmp_array = [x for x in word_score.items()]
+        tmp_array.sort(reverse = True, key = lambda y: (float(y[1]["correct"])/ float(y[1]["total"])*100) )
+
+        output = yaml.dump(word_score)
+        print output
+
+        row_format = "|{:<10}|{:>7}" + " | " + "{:>6.4} |" 
+        print "|_.Command |_.Correct/Total |_.%Correct |"
+        for key,value in tmp_array:
+            ratio = "{}/{}".format(value["correct"], value["total"])
+            print row_format.format(key, ratio, (float(value["correct"])/ float(value["total"])*100))
 
 
 if __name__ == '__main__':

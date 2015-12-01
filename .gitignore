@@ -3,6 +3,7 @@ kaldi/
 pocketsphinx/
 sphinxbase/
 venv/
+EasyVR-Arduino/
 
 #do no include resource file unless explicityl added
 res/*
