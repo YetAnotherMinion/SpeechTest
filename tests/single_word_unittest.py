@@ -2,6 +2,9 @@ import unittest
 import os, sys, inspect
 import yaml
 import itertools
+import subprocess
+import time
+import datetime
 
 from pocketsphinx.pocketsphinx import *
 from sphinxbase.sphinxbase import *
@@ -117,15 +120,18 @@ class TestSingleWord(unittest.TestCase):
         tmp_array = [x for x in word_score.items()]
         tmp_array.sort(reverse = True, key = lambda y: (float(y[1]["correct"])/ float(y[1]["total"])*100) )
 
-        output = yaml.dump(word_score)
-        print output
+        #find out what commit we are running under
+        label = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'])
+        time_label = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d|%H:%M:%S')
+        out_fn = "".join(label) + "_" + time_label + ".yml"
+        with open(out_fn, "w") as f:
+            f.write(yaml.dump(word_score))
 
         row_format = "|{:<10}|{:>7}" + " | " + "{:>6.4} |" 
         print "|_.Command |_.Correct/Total |_.%Correct |"
         for key,value in tmp_array:
             ratio = "{}/{}".format(value["correct"], value["total"])
             print row_format.format(key, ratio, (float(value["correct"])/ float(value["total"])*100))
-
 
 if __name__ == '__main__':
     unittest.main()
