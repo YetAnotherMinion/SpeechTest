@@ -43,10 +43,11 @@ def continous():
         x = looper.next()
 
         print "Guess:", x.hypothesis.hypstr
+        print "Elapsed (milliseconds): ", x.elasped_time / 1000.0
 
         print "="*50
-        for guess in x.hypothesis_segments:
-            print guess
+        # for guess in x.hypothesis_segments:
+        #     print guess
 
 if __name__ == '__main__':
     continous()

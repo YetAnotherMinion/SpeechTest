@@ -2,6 +2,8 @@ from os import environ, path
 import time
 import pyaudio
 import wave
+from util import suppress_stdout_stderr
+import datetime
 
 
 from pocketsphinx.pocketsphinx import *
@@ -12,6 +14,7 @@ class CandiateUtterance(object):
         self.hypothesis = None
         self.hypothesis_segments = []
         self.nbest = []
+        self.elasped_time = None
 
 def decode_from_file(filename, decoder = None):
     if decoder == None:
@@ -60,33 +63,40 @@ def loop_decode(seconds = 3, decoder = None):
     try:
         while True:
             yield cu
-            p = pyaudio.PyAudio()
-            stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
+            with suppress_stdout_stderr():
+                p = pyaudio.PyAudio()
+                stream = p.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
             print("* recording")
             frames = []
             n_frames = int(RATE / CHUNK * RECORD_SECONDS)
             for i in range(0, n_frames):
                 data = stream.read(CHUNK)
                 frames.append(data)
+                if not i%10:
+                    print i
             print("* done recording")
+            n1 = datetime.datetime.now()
             stream.stop_stream()
             stream.close()
             p.terminate()
-            
-            decoder.start_utt()
-            print "Frame length:", len(frames)
-            for buf in frames:
-                if buf:
-                    decoder.process_raw(buf, False, False)
-                else:
-                    break
-            decoder.end_utt()
-            del frames
+            with suppress_stdout_stderr():
+                n1 = datetime.datetime.now()
+                decoder.start_utt()
+                print "Frame length:", len(frames)
+                for buf in frames:
+                    if buf:
+                        decoder.process_raw(buf, False, False)
+                    else:
+                        break
+                decoder.end_utt()
+                del frames
 
-            cu = CandiateUtterance()
-            cu.hypothesis = decoder.hyp()
-            cu.hypothesis_segments = [seg.word for seg in decoder.seg()]
-            cu.nbest = zip(range(10), decoder.nbest())
+                cu = CandiateUtterance()
+                cu.hypothesis = decoder.hyp()
+                cu.hypothesis_segments = [seg.word for seg in decoder.seg()]
+                cu.nbest = zip(range(10), decoder.nbest())
+                n2 = datetime.datetime.now()
+                cu.elasped_time = (n2-n1).microseconds
             
     except GeneratorExit:
         #finished
