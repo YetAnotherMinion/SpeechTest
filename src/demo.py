@@ -69,34 +69,29 @@ def loop_decode(seconds = 3, decoder = None):
             print("* recording")
             frames = []
             n_frames = int(RATE / CHUNK * RECORD_SECONDS)
+            n1 = datetime.datetime.now()
+            decoder.start_utt()
             for i in range(0, n_frames):
                 data = stream.read(CHUNK)
+                with suppress_stdout_stderr():
+                    if data:
+                        decoder.process_raw(data, False, False)
                 frames.append(data)
                 if not i%10:
                     print i
             print("* done recording")
-            n1 = datetime.datetime.now()
+            decoder.end_utt()
+            
             stream.stop_stream()
             stream.close()
             p.terminate()
             with suppress_stdout_stderr():
-                n1 = datetime.datetime.now()
-                decoder.start_utt()
-                print "Frame length:", len(frames)
-                for buf in frames:
-                    if buf:
-                        decoder.process_raw(buf, False, False)
-                    else:
-                        break
-                decoder.end_utt()
-                del frames
-
                 cu = CandiateUtterance()
                 cu.hypothesis = decoder.hyp()
                 cu.hypothesis_segments = [seg.word for seg in decoder.seg()]
                 cu.nbest = zip(range(10), decoder.nbest())
-                n2 = datetime.datetime.now()
-                cu.elasped_time = (n2-n1).microseconds
+            n2 = datetime.datetime.now()
+            cu.elasped_time = (n2-n1).microseconds
             
     except GeneratorExit:
         #finished

@@ -64,7 +64,9 @@ class TestSingleWord(unittest.TestCase):
             sample_word = tc[-1]
             count += 1
             if not sample_word in word_score:
-                word_score[sample_word] = {"correct":0, "total":1}
+                word_score[sample_word] = {"correct":0, "total":1,
+                        "normalized": {"correct":0, "total":0},
+                        "raw": {"correct":0, "total":0}}
             else:
                 word_score[sample_word]["total"] += 1
             fn = os.path.join(G_PROJECT_ROOT_DIR, *tc[0:-1])
@@ -72,15 +74,25 @@ class TestSingleWord(unittest.TestCase):
             with suppress_stdout_stderr():
                 x = decode_from_file(fn, self.decoder)
 
+            # account for the raw and normalized sample totals
+            if "normalized" in fn:
+                word_score[sample_word]["normalized"]["total"] += 1
+            else:
+                word_score[sample_word]["raw"]["total"] += 1
+
             if x.hypothesis.hypstr == sample_word:
                 word_score[sample_word]["correct"] += 1
+                if "normalized" in fn:
+                    word_score[sample_word]["normalized"]["correct"] += 1
+                else:
+                    word_score[sample_word]["raw"]["correct"] += 1
 
         tmp_array = [x for x in word_score.items()]
         tmp_array.sort(reverse = True, key = lambda y: (float(y[1]["correct"])/ float(y[1]["total"])*100) )
 
         #find out what commit we are running under
         label = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD'])
-        label = lable.strip('\n')
+        label = label.strip('\n')
         time_label = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d|%H:%M:%S')
         out_fn = "".join(label) + "_" + time_label + ".yml"
         with open(out_fn, "w") as f:
@@ -90,7 +102,15 @@ class TestSingleWord(unittest.TestCase):
         print "|_.Command |_.Correct/Total |_.%Correct |"
         for key,value in tmp_array:
             ratio = "{}/{}".format(value["correct"], value["total"])
-            print row_format.format(key, ratio, (float(value["correct"])/ float(value["total"])*100))
+            overall_percent = (float(value["correct"])/ float(value["total"])*100)
+            print row_format.format(key, ratio, '')
+            norm_ratio = "{}/{}".format(value["normalized"]["correct"], value["normalized"]["total"])
+            norm_percent = float(value["normalized"]["correct"])/ float(value["normalized"]["total"])*100
+            print row_format.format('  norm', norm_ratio , norm_percent)
+            raw_ratio = "{}/{}".format(value["raw"]["correct"], value["raw"]["total"])
+            raw_percent = float(value["normalized"]["correct"])/ float(value["normalized"]["total"])*100
+            print row_format.format('  rw', raw_ratio , raw_percent)
+            print "+" + "-"*10 + "+" + "-"*8 + "+" + "-"*8 + "+"
 
 if __name__ == '__main__':
     unittest.main()
