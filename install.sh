@@ -50,11 +50,10 @@ echo "========================="
 pkg-config --cflags --libs pocketsphinx sphinxbase
 echo "========================="
 
-gcc -o bin/hello_ps src/hello_ps.c \
+$CC -o bin/hello_ps src/hello_ps.c \
     -DMODELDIR=\"`pkg-config --variable=modeldir pocketsphinx`\" \
     `pkg-config --cflags --libs pocketsphinx sphinxbase`
 
-sudo pip install --upgrade pip
 sudo pip install -r requirements.txt
 # #return to base
 # cd ../
