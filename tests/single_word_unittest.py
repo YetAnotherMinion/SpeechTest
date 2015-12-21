@@ -108,7 +108,7 @@ class TestSingleWord(unittest.TestCase):
             norm_percent = float(value["normalized"]["correct"])/ float(value["normalized"]["total"])*100
             print row_format.format('  norm', norm_ratio , norm_percent)
             raw_ratio = "{}/{}".format(value["raw"]["correct"], value["raw"]["total"])
-            raw_percent = float(value["normalized"]["correct"])/ float(value["normalized"]["total"])*100
+            raw_percent = float(value["raw"]["correct"])/ float(value["raw"]["total"])*100
             print row_format.format('  rw', raw_ratio , raw_percent)
             print "+" + "-"*10 + "+" + "-"*8 + "+" + "-"*8 + "+"
 
